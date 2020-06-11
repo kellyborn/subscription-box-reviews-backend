@@ -5,10 +5,15 @@ const express = require("express");
 const routes = express.Router();
 
 // step 4 - make instance
-// const pool = require("./connection");
+const pool = require("./connection");
 
 
-
+routes.get("/home", (request, response) => {
+    pool.query("SELECT * FROM subs").then((result) => {
+        console.log(result.rows)
+        response.json(result.rows);
+    })
+});
 
 
 
