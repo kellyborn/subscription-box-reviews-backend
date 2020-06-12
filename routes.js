@@ -15,6 +15,12 @@ routes.get("/home", (request, response) => {
     })
 });
 
+routes.post("/home", (req, res) => {
+    pool.query("INSERT INTO reviews(review, rating, subscription_id, review_title, user_cost ) VALUES ($1::text, $2::int, $3::int, $4::text, $5::money )",
+        [req.body.review, req.body.rating, req.body.subscription_id, req.body.review_title, req.body.user_cost]).then(() => {
+            res.json(req.body)
+        });
+});
 
 
 module.exports = { routes };
