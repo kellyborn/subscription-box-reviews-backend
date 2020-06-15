@@ -8,19 +8,26 @@ const routes = express.Router();
 const pool = require("./connection");
 
 
-routes.get("/home", (request, response) => {
+routes.get("/subscriptions", (request, response) => {
     pool.query("SELECT * FROM subs").then((result) => {
-
         response.json(result.rows);
     });
 });
 
 routes.get("/reviews", (request, response) => {
     pool.query("SELECT * FROM reviews").then((result) => {
+        response.json(result.rows);
+    });
+});
+
+//GET meat featured reviews
+routes.get("/meatfeaturedreviews", (request, response) => {
+    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'meat'").then((result) => {
         console.log(result.rows)
         response.json(result.rows);
     });
 });
+
 
 routes.post("/home", (req, res) => {
     pool.query("INSERT INTO reviews(review, rating, subscription_id, review_title, user_cost ) VALUES ($1::text, $2::int, $3::int, $4::text, $5::money )",
