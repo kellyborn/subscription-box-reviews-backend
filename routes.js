@@ -28,14 +28,30 @@ routes.get("/meatfeaturedreviews", (request, response) => {
     });
 });
 
+<<<<<<< HEAD
 routes.get("/meatsubs", (request, response) => {
     pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'meat'").then((result) => {
+=======
+//GET veggie featured reviews
+routes.get("/vegfeaturedreviews", (request, response) => {
+    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'veg'").then((result) => {
+>>>>>>> 28cbb91c9bbe471cdf8c6d1f1b31794b37e99802
         console.log(result.rows)
         response.json(result.rows);
     });
 });
 
+<<<<<<< HEAD
 
+=======
+//GET meal prep featured reviews
+routes.get("/mealprepfeaturedreviews", (request, response) => {
+    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'mealprep'").then((result) => {
+        console.log(result.rows)
+        response.json(result.rows);
+    });
+});
+>>>>>>> 28cbb91c9bbe471cdf8c6d1f1b31794b37e99802
 
 
 routes.post("/home", (req, res) => {
