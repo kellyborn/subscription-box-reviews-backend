@@ -10,9 +10,16 @@ const pool = require("./connection");
 
 routes.get("/home", (request, response) => {
     pool.query("SELECT * FROM subs").then((result) => {
+
+        response.json(result.rows);
+    });
+});
+
+routes.get("/reviews", (request, response) => {
+    pool.query("SELECT * FROM reviews").then((result) => {
         console.log(result.rows)
         response.json(result.rows);
-    })
+    });
 });
 
 routes.post("/home", (req, res) => {
