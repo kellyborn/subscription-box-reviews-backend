@@ -28,6 +28,15 @@ routes.get("/meatfeaturedreviews", (request, response) => {
     });
 });
 
+routes.get("/meatsubs", (request, response) => {
+    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'meat'").then((result) => {
+        console.log(result.rows)
+        response.json(result.rows);
+    });
+});
+
+
+
 
 routes.post("/home", (req, res) => {
     pool.query("INSERT INTO reviews(review, rating, subscription_id, review_title, user_cost ) VALUES ($1::text, $2::int, $3::int, $4::text, $5::money )",
