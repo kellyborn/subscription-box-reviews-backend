@@ -30,6 +30,7 @@ routes.get("/subscriptiondetails", (request, response) => {
     });
 });
 
+
 //GET meat FEATURED REVIEWS
 routes.get("/meatfeaturedreviews", (request, response) => {
     pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'meat'").then((result) => {
@@ -56,31 +57,13 @@ routes.get("/mealprepfeaturedreviews", (request, response) => {
 
 //TODO: Remove these three below and make the above three more generic to use more widely in our front end
 
-// GET meat 
-routes.get("/meatsubs", (request, response) => {
-    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'meat'").then((result) => {
+// GET subscriptions with type (query params)
+routes.get("/subscription", (request, response) => {
+    pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = '${request.query.type}'`).then((result) => {
         console.log(result.rows)
         response.json(result.rows);
     });
 });
-
-routes.get("/vegsubs", (request, response) => {
-    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'veg'").then((result) => {
-        console.log(result.rows)
-        response.json(result.rows);
-    });
-});
-
-routes.get("/mealprep", (request, response) => {
-    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'mealprep'").then((result) => {
-        console.log(result.rows)
-        response.json(result.rows);
-    });
-});
-
-
-
-
 
 
 routes.post("/home", (req, res) => {
