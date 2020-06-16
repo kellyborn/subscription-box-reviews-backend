@@ -35,6 +35,23 @@ routes.get("/meatsubs", (request, response) => {
     });
 });
 
+routes.get("/vegsubs", (request, response) => {
+    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'veg'").then((result) => {
+        console.log(result.rows)
+        response.json(result.rows);
+    });
+});
+
+routes.get("/mealprep", (request, response) => {
+    pool.query("SELECT * FROM reviews JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = 'mealprep'").then((result) => {
+        console.log(result.rows)
+        response.json(result.rows);
+    });
+});
+
+
+
+
 //GET veggie featured reviews
 
 routes.get("/vegfeaturedreviews", (request, response) => {
