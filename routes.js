@@ -26,7 +26,6 @@ routes.get("/reviews", (request, response) => {
 routes.get("/subscriptiondetails", (request, response) => {
     const id = parseInt(request.query.id);
     pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_id = ${id}`).then((result) => {
-        console.log(result.rows)
         response.json(result.rows);
     });
 });
@@ -36,12 +35,12 @@ routes.get("/subscriptiondetails", (request, response) => {
 // GET subscriptions with type (query params)
 routes.get("/subscription", (request, response) => {
     pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = '${request.query.type}'`).then((result) => {
-        console.log(result.rows)
         response.json(result.rows);
     });
 });
 
 routes.post("/home", (req, res) => {
+    console.log(req.body);
     pool.query("INSERT INTO reviews(review, rating, subscription_id, review_title, user_cost ) VALUES ($1::text, $2::int, $3::int, $4::text, $5::money )",
         [req.body.review, req.body.rating, req.body.subscription_id, req.body.review_title, req.body.user_cost]).then(() => {
             res.json(req.body)
