@@ -24,7 +24,8 @@ routes.get("/reviews", (request, response) => {
 
 //GET subscription DETAILS
 routes.get("/subscriptiondetails", (request, response) => {
-    pool.query("SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id").then((result) => {
+    const id = parseInt(request.query.id);
+    pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_id = ${id}`).then((result) => {
         console.log(result.rows)
         response.json(result.rows);
     });
