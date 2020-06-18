@@ -30,7 +30,13 @@ routes.get("/subscriptiondetails", (request, response) => {
     });
 });
 
-//TODO: Remove these three below and make the above three more generic to use more widely in our front end
+//GET aveage cost for Sub Details component
+routes.get("/subscriptiondetailsavg", (request, response) => {
+    const id = parseInt(request.query.id);
+    pool.query(`SELECT avg(user_cost::numeric) FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_id = ${id}`).then((result) => {
+        response.json(result.rows);
+    });
+});
 
 // GET subscriptions with type (query params)
 routes.get("/subscription", (request, response) => {
@@ -38,6 +44,7 @@ routes.get("/subscription", (request, response) => {
         response.json(result.rows);
     });
 });
+
 
 routes.post("/home", (req, res) => {
     console.log(req.body);
