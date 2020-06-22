@@ -60,13 +60,6 @@ routes.get("/featurereview", (request, response) => {
     });
 });
 
-// GET Feature Review
-routes.get("/featurereview", (request, response) => {
-    pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = '${request.query.type}'`).then((result) => {
-        response.json(result.rows);
-    });
-});
-
 routes.post("/home", (req, res) => {
     console.log(req.body);
     pool.query("INSERT INTO reviews(review, rating, subscription_id, review_title, user_cost ) VALUES ($1::text, $2::int, $3::int, $4::text, $5::money )",
