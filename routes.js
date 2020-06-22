@@ -38,6 +38,14 @@ routes.get("/subscriptiondetailsavg", (request, response) => {
     });
 });
 
+//GET aveage RATING for subscriptions
+routes.get("/subscriptionratingavg", (request, response) => {
+    const id = parseInt(request.query.id);
+    pool.query(`SELECT ROUND(avg(rating::numeric)) FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_id = ${id}`).then((result) => {
+        response.json(result.rows);
+    });
+});
+
 // GET subscriptions with type (query params)
 routes.get("/subscription", (request, response) => {
     pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = '${request.query.type}'`).then((result) => {
@@ -45,6 +53,12 @@ routes.get("/subscription", (request, response) => {
     });
 });
 
+// GET Feature Review
+routes.get("/featurereview", (request, response) => {
+    pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = '${request.query.type}'`).then((result) => {
+        response.json(result.rows);
+    });
+});
 
 routes.post("/home", (req, res) => {
     console.log(req.body);
