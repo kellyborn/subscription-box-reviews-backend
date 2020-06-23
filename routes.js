@@ -57,7 +57,8 @@ routes.get("/subscription", (request, response) => {
 routes.get("/featurereview", (request, response) => {
     pool.query(`SELECT * FROM reviews FULL JOIN subs ON reviews.subscription_id = subs.sub_id WHERE sub_type = '${request.query.type}'`).then((result) => {
         response.json(result.rows);
-    });
+    }).catch(error => console.error(error));
+
 });
 
 routes.post("/home", (req, res) => {
