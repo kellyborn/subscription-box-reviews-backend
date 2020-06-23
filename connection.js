@@ -8,6 +8,8 @@ try {
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: connectionString,
+    //this is what made it work 
+    //https://help.heroku.com/MDM23G46/why-am-i-getting-an-error-when-i-upgrade-to-pg-8
     ssl: connectionString.includes('localhost') ? false : { rejectUnauthorized: false }
 });
 module.exports = pool;
