@@ -8,6 +8,6 @@ try {
 const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({
     connectionString: connectionString,
-    ssl: !connectionString.includes('localhost')
+    ssl: connectionString.includes('localhost') ? false : { rejectUnauthorized: false }
 });
 module.exports = pool;
